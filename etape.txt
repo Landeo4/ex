@@ -1,0 +1,33 @@
+MAIN:
+{
+faire un if qui verifie si argc sup 1
+faire un while argv[i]
+ajouter a argv -> i
+faire un while pour passer les | ; avec strcmp
+verif si argv[0] == cd
+sinon exec
+et enfin si argv[i] -> i++;
+}
+
+EXEC
+{
+	initialiser is_pipe avec argv[i] && !strcmp(argv[i], "|")
+	fd[2]
+	verif si il ya un pipe && pipe(fd) == -1
+		return (error);
+	pid = fork();
+	si pid == 0
+	{
+		argv[i] = 0;
+		je fais la grosse verif
+			return error
+		execve(argv[0], argv, envp);
+		return (error);
+	}
+	waitpid(pid, 0, 0);
+	grosse verif mais cette fois avec des 0 aux fd au lieux des 1
+	return (0);
+}
+
+grosse verif = has_pipe && (dup2(fd[1], 1) == -1 ||
+							close(fd[0]) == -1 || close(fd[1]) == -1))
